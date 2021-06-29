@@ -2,4 +2,4 @@
 
 **...in progress...**
 
-# [Play online](https://http://rpgonline.aleviel.ru/)
+# [Play online](http://rpgonline.aleviel.ru/)
