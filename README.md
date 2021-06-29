@@ -1,3 +1,3 @@
-#Simple online RPG game
+# Simple online RPG game
 
 **...in progress...**
