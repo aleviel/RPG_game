@@ -5,7 +5,9 @@
     "scripts": {
         "lint": "npx eslint src/**/*.js",
         "prettier": "npx prettier --write .",
-        "dev": "npx webpack server"
+        "dev": "npx webpack server",
+        "build:dev": "env NODE_ENV=development webpack",
+        "build:prod": "env NODE_ENV=production webpack"
     },
     "repository": {
         "type": "git",
