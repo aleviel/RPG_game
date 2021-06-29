@@ -1,0 +1,8 @@
+dist
+coverage
+.prettierrc
+*.json
+*.html
+*.md
+**/*.js
+!src/**/*.js
