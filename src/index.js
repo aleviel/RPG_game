@@ -5,6 +5,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const SETTINGS = {
+    spriteShift: 0,
     spriteW: 48,
     spriteH: 48,
     cycle: 0,
@@ -35,28 +36,32 @@ PersonImg.addEventListener('load', () => {
         KEYS.ArrowDown &&
             SETTINGS.pY < SETTINGS.CanvasHeight - SETTINGS.spriteH &&
             (SETTINGS.pY += SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots);
+            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+            (SETTINGS.spriteShift = 0);
         // eslint-disable-next-line no-unused-expressions
         KEYS.ArrowUp &&
             SETTINGS.pY > 0 &&
             (SETTINGS.pY -= SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots);
+            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+            (SETTINGS.spriteShift = SETTINGS.spriteW * 3);
         // eslint-disable-next-line no-unused-expressions
         KEYS.ArrowLeft &&
             SETTINGS.pX > 0 &&
             (SETTINGS.pX -= SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots);
+            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+            (SETTINGS.spriteShift = SETTINGS.spriteW);
         // eslint-disable-next-line no-unused-expressions
         KEYS.ArrowRight &&
             SETTINGS.pX < SETTINGS.CanvasWidth - SETTINGS.spriteW &&
             (SETTINGS.pX += SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots);
+            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+            (SETTINGS.spriteShift = SETTINGS.spriteW * 2);
 
         ctx.clearRect(0, 0, 600, 600);
         ctx.drawImage(
             PersonImg,
             SETTINGS.cycle * SETTINGS.spriteW,
-            0,
+            SETTINGS.spriteShift,
             SETTINGS.spriteW,
             SETTINGS.spriteH,
             SETTINGS.pX,
