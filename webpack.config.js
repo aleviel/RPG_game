@@ -56,7 +56,7 @@ module.exports = {
         }),
         {
             apply: (compiler) => {
-                NODE_ENV && compiler.hooks.done.tap('DonePlugin', () => {
+                NODE_ENV === 'production' && compiler.hooks.done.tap('DonePlugin', () => {
                     setTimeout(() => {
                         process.exit(0);
                     });
@@ -64,5 +64,4 @@ module.exports = {
             },
         }
     ],
-}
-;
+};
