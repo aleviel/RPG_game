@@ -27,49 +27,52 @@ const KEYS = {
 const PersonImg = document.createElement('img');
 PersonImg.src = Sensei;
 
+function moveChar() {
+    // eslint-disable-next-line no-unused-expressions
+    KEYS.ArrowDown &&
+        SETTINGS.pY < SETTINGS.CanvasHeight - SETTINGS.spriteH &&
+        (SETTINGS.pY += SETTINGS.speed) &&
+        (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+        (SETTINGS.spriteShift = 0);
+    // eslint-disable-next-line no-unused-expressions
+    KEYS.ArrowUp &&
+        SETTINGS.pY > 0 &&
+        (SETTINGS.pY -= SETTINGS.speed) &&
+        (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+        (SETTINGS.spriteShift = SETTINGS.spriteW * 3);
+    // eslint-disable-next-line no-unused-expressions
+    KEYS.ArrowLeft &&
+        SETTINGS.pX > 0 &&
+        (SETTINGS.pX -= SETTINGS.speed) &&
+        (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+        (SETTINGS.spriteShift = SETTINGS.spriteW);
+    // eslint-disable-next-line no-unused-expressions
+    KEYS.ArrowRight &&
+        SETTINGS.pX < SETTINGS.CanvasWidth - SETTINGS.spriteW &&
+        (SETTINGS.pX += SETTINGS.speed) &&
+        (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
+        (SETTINGS.spriteShift = SETTINGS.spriteW * 2);
+
+    ctx.clearRect(0, 0, 600, 600);
+    ctx.drawImage(
+        PersonImg,
+        SETTINGS.cycle * SETTINGS.spriteW,
+        SETTINGS.spriteShift,
+        SETTINGS.spriteW,
+        SETTINGS.spriteH,
+        SETTINGS.pX,
+        SETTINGS.pY,
+        SETTINGS.spriteW,
+        SETTINGS.spriteH,
+    );
+    window.requestAnimationFrame(moveChar);
+}
+
 PersonImg.addEventListener('load', () => {
     document.querySelector('h3').remove();
     SETTINGS.pY = SETTINGS.CanvasHeight / 2 - SETTINGS.spriteH / 2;
     SETTINGS.pX = SETTINGS.CanvasWidth / 2 - SETTINGS.spriteW / 2;
-    setInterval(() => {
-        // eslint-disable-next-line no-unused-expressions
-        KEYS.ArrowDown &&
-            SETTINGS.pY < SETTINGS.CanvasHeight - SETTINGS.spriteH &&
-            (SETTINGS.pY += SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
-            (SETTINGS.spriteShift = 0);
-        // eslint-disable-next-line no-unused-expressions
-        KEYS.ArrowUp &&
-            SETTINGS.pY > 0 &&
-            (SETTINGS.pY -= SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
-            (SETTINGS.spriteShift = SETTINGS.spriteW * 3);
-        // eslint-disable-next-line no-unused-expressions
-        KEYS.ArrowLeft &&
-            SETTINGS.pX > 0 &&
-            (SETTINGS.pX -= SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
-            (SETTINGS.spriteShift = SETTINGS.spriteW);
-        // eslint-disable-next-line no-unused-expressions
-        KEYS.ArrowRight &&
-            SETTINGS.pX < SETTINGS.CanvasWidth - SETTINGS.spriteW &&
-            (SETTINGS.pX += SETTINGS.speed) &&
-            (SETTINGS.cycle = (SETTINGS.cycle + 1) % SETTINGS.shots) &&
-            (SETTINGS.spriteShift = SETTINGS.spriteW * 2);
-
-        ctx.clearRect(0, 0, 600, 600);
-        ctx.drawImage(
-            PersonImg,
-            SETTINGS.cycle * SETTINGS.spriteW,
-            SETTINGS.spriteShift,
-            SETTINGS.spriteW,
-            SETTINGS.spriteH,
-            SETTINGS.pX,
-            SETTINGS.pY,
-            SETTINGS.spriteW,
-            SETTINGS.spriteH,
-        );
-    }, 120);
+    window.requestAnimationFrame(moveChar);
 });
 
 function startRun(event) {
