@@ -28,6 +28,35 @@ class ClientGame {
         this.player = player;
     }
 
+    initKeys() {
+        this.engine.input.onKey({
+            ArrowLeft: (key) => {
+                if (key) {
+                    this.movePlayer(-1, 0);
+                }
+            },
+            ArrowRight: (key) => {
+                if (key) {
+                    this.movePlayer(1, 0);
+                }
+            },
+            ArrowDown: (key) => {
+                if (key) {
+                    this.movePlayer(0, 1);
+                }
+            },
+            ArrowUp: (key) => {
+                if (key) {
+                    this.movePlayer(0, -1);
+                }
+            },
+        });
+    }
+
+    movePlayer(x, y) {
+        this.player.moveByCellCoord(x, y, (cell) => cell.findObjectsByType('grass').length);
+    }
+
     initEngine() {
         this.engine.loadSprites(sprites).then(() => {
             this.world.init();
@@ -35,6 +64,7 @@ class ClientGame {
                 this.world.render(time);
             });
             this.engine.start();
+            this.initKeys();
         });
     }
 
