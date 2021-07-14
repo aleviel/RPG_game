@@ -10,6 +10,7 @@ class ClientGame {
         Object.assign(this, {
             cfg,
             gameObjects,
+            player: null,
         });
 
         this.engine = this.createEngine();
@@ -21,6 +22,10 @@ class ClientGame {
         if (!ClientGame.game) {
             ClientGame.game = new ClientGame(cfg);
         }
+    }
+
+    setPlayer(player) {
+        this.player = player;
     }
 
     initEngine() {
